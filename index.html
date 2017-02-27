@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JS-todo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
+
+    <link media="all" type="text/css" rel="stylesheet" href="css/main.css">
+
+
+</head>
+
+<body style="margin: 50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="todo-title">todos</h1>
+                <header>
+                    <input class="new-todo" type="text" id="addTodoTextInput" placeholder="What needs to be done?" style="width: 100%">
+                </header>
+                <section id="main" class="main">
+                    <!--<label for="toggle-all">Mark all as complete</label>-->
+                    <ul class="todo-list">
+                        <li id="times"></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+    </div>
+    <script src="./dist/bundle.js"></script>
+</body>
+
+</html>
