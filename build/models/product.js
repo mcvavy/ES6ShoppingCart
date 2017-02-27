@@ -11,7 +11,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var pid = require('shortid');
 
 var Product = exports.Product = function () {
-    function Product(name, price, category, description, rating, quantity, comments) {
+    function Product(name, price, category, description, rating, quantity, comments, discount) {
         _classCallCheck(this, Product);
 
         this.Id = pid.generate();
@@ -21,6 +21,7 @@ var Product = exports.Product = function () {
         this.description = description;
         this.rating = rating;
         this.quantity = quantity;
+        this.discount = discount;
         this.comments = [];
     }
 
