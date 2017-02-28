@@ -39,8 +39,8 @@ var Cart = exports.Cart = function () {
         key: 'totalPrice',
         value: function totalPrice() {
             return this.items.reduce(function (sum, b) {
-                return sum + (b.discount > 0 ? b.price - b.discount : b.price, 0.00);
-            }).toFixed(2);
+                return sum + (b.discount > 0) ? b.price - b.discount : b.price;
+            }, 0.00).toFixed(2);
         }
     }]);
 

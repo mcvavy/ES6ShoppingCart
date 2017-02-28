@@ -17,6 +17,6 @@ export class Cart {
     }
 
     totalPrice() {
-        return this.items.reduce((sum, b) => sum + ((b.discount > 0) ? (b.price - b.discount): b.price, 0.00)).toFixed(2);
+        return this.items.reduce((sum, b) => sum + (b.discount > 0) ? (b.price - b.discount): b.price,0.00).toFixed(2);
     }
 }

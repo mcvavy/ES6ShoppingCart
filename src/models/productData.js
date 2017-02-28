@@ -1,4 +1,4 @@
-[{
+export const productData = [{
   "id": 1,
   "name": "Fiveclub",
   "price": 40.45,

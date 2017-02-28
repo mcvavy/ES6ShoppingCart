@@ -1,6 +1,9 @@
 "use strict";
 
-[{
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var productData = exports.productData = [{
   "id": 1,
   "name": "Fiveclub",
   "price": 40.45,
