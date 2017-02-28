@@ -23,7 +23,9 @@ var View = function () {
 
             //display total item in basket
             //display total item price
-            var splitarr = _Cart.cart.totalPrice().toString().split('.');
+            var splitarr = _Cart.cart.totalPrice() !== 0 ? _Cart.cart.totalPrice().toString().split('.') : ["0", "00"];
+
+            console.log(_Cart.cart.totalPrice());
 
             document.getElementById("mainPrice").innerHTML = '$' + splitarr[0] + '<sup>.' + splitarr[1] + '</sup>';
             document.getElementById("bagy").innerHTML = _Cart.cart.totalItem();

@@ -8,7 +8,9 @@ class View {
     displatCartItem() {
         //display total item in basket
         //display total item price
-        let splitarr = Cart.totalPrice().toString().split('.');
+        let splitarr = (Cart.totalPrice() !==0)  ? Cart.totalPrice().toString().split('.') : ["0","00"];
+
+        console.log(Cart.totalPrice());
 
         document.getElementById("mainPrice").innerHTML =`\$${splitarr[0]}<sup>.${splitarr[1]}</sup>`;
         document.getElementById("bagy").innerHTML = Cart.totalItem();

@@ -14,7 +14,7 @@ class Cart {
     }
 
     totalItem() {
-        return this.items.reduce((sum, b) => sum + 1, 0);
+        return (this.items.length>0) ? this.items.reduce((sum, b) => sum + 1, 0): 0;
     }
 
     totalDiscountPrice() {
@@ -22,7 +22,7 @@ class Cart {
     }
 
     totalPrice() {
-        return this.items.reduce((sum, b) => sum + (b.discount > 0 && b.discount !== '') ? (b.price - (b.discount * b.price) / 100) : b.price, 0.00).toFixed(2);
+        return (this.items.length> 0) ? (this.items.reduce((sum, b) => sum + (b.discount > 0 && b.discount !== '') ? (b.price - (b.discount * b.price) / 100) : b.price, 0.00).toFixed(2)) : 0.00;
     }
 
     totalPriceWithoutDiscount() {

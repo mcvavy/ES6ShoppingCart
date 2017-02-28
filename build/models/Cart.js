@@ -31,9 +31,9 @@ var Cart = function () {
     }, {
         key: 'totalItem',
         value: function totalItem() {
-            return this.items.reduce(function (sum, b) {
+            return this.items.length > 0 ? this.items.reduce(function (sum, b) {
                 return sum + 1;
-            }, 0);
+            }, 0) : 0;
         }
     }, {
         key: 'totalDiscountPrice',
@@ -45,9 +45,9 @@ var Cart = function () {
     }, {
         key: 'totalPrice',
         value: function totalPrice() {
-            return this.items.reduce(function (sum, b) {
+            return this.items.length > 0 ? this.items.reduce(function (sum, b) {
                 return sum + (b.discount > 0 && b.discount !== '') ? b.price - b.discount * b.price / 100 : b.price;
-            }, 0.00).toFixed(2);
+            }, 0.00).toFixed(2) : 0.00;
         }
     }, {
         key: 'totalPriceWithoutDiscount',
