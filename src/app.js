@@ -1,7 +1,10 @@
-import { Cart } from './models/Cart';
+import { controller } from './controller/controller';
 
-let cartObject = new Cart();
+//let cartObject = new Cart();
+controller.displayCartItems();
 
 
-console.log(cartObject.totalPrice());
-console.log(`Total item in cart is: ${cartObject.totalItem()}`);
+// console.log(`Total Item price is ${cartObject.totalPrice()}`);
+// console.log(`Total item in cart is: ${cartObject.totalItem()}`);
+// console.log(`Total discount price is ${cartObject.totalDiscountPrice()}`);
+// console.log(`Total price without discount is ${cartObject.totalPriceWithoutDiscount()}`);

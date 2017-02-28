@@ -1,4 +1,55 @@
-.navbar {
-  font-family: Montserrat, sans-serif;
-  margin-bottom: 0;
+.cartbg {
+  border: 1px solid #008000;
+  border-radius: 5px;
+  background: #a4b357;
+}
+.cartbg .itemslist {
+  list-style-type: none;
+}
+.cartbg .itemslist .cart-item-price {
+  padding-right: 3px;
+  float: right;
+}
+.cartbg .itemslist .cart-item {
+  display: block;
+  border-bottom: 1px solid #808080;
+  margin-bottom: 5px;
+  font-family: Raleway;
+  font-size: 1.3em;
+  border-radius: 4px;
+}
+.cartbg .ali {
+  font-size: 2.5em;
+  font-weight: bolder;
+  font-family: Raleway;
+  color: #008000;
+}
+.cartbg .ali sup {
+  color: #f00;
+}
+.cartbg .inclass {
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.cartbg li {
+  display: inline;
+  margin-right: 10px;
+}
+.cartbg .basket {
+  position: relative;
+}
+.cartbg .basket img {
+  height: 70px;
+  width: 70px;
+}
+.cartbg .basket .badge {
+  background-color: #f00;
+  position: absolute;
+  left: 49px;
+  top: 4px;
 }
