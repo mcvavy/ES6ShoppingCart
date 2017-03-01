@@ -3,6 +3,7 @@
 var _controller = require('./controller/controller');
 
 //let cartObject = new Cart();
+_controller.controller.setUpEventListeners();
 _controller.controller.displayCartItems();
 
 // console.log(`Total Item price is ${cartObject.totalPrice()}`);

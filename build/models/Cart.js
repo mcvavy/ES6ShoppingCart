@@ -31,7 +31,6 @@ var Cart = function () {
     }, {
         key: 'totalItem',
         value: function totalItem() {
-            console.log(this.items.length);
             return this.items.length > 0 ? this.items.reduce(function (sum, b) {
                 return sum + 1;
             }, 0) : 0;

@@ -1,6 +1,7 @@
 import { controller } from './controller/controller';
 
 //let cartObject = new Cart();
+controller.setUpEventListeners();
 controller.displayCartItems();
 
 

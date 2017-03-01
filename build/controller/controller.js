@@ -21,6 +21,11 @@ var Controller = function () {
         value: function displayCartItems() {
             _view.view.displatCartItem();
         }
+    }, {
+        key: 'setUpEventListeners',
+        value: function setUpEventListeners() {
+            _view.view.setUpEventistener();
+        }
     }]);
 
     return Controller;

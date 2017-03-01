@@ -1,17 +1,20 @@
-.cartbg {
+.container .fa-plus {
+  color: #808080;
+}
+.container .cartbg {
   border: 1px solid #008000;
   border-radius: 5px;
   background: #a4b357;
   padding-top: 10px;
 }
-.cartbg .itemslist {
+.container .cartbg .itemslist {
   list-style-type: none;
 }
-.cartbg .itemslist .cart-item-price {
+.container .cartbg .itemslist .cart-item-price {
   padding: 0px 5px;
   float: right;
 }
-.cartbg .itemslist .cart-item {
+.container .cartbg .itemslist .cart-item {
   display: block;
   border-bottom: 1px solid #808080;
   margin-bottom: 5px;
@@ -19,7 +22,7 @@
   font-size: 1.3em;
   border-radius: 6px;
 }
-.cartbg .inclass {
+.container .cartbg .inclass {
   list-style-type: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -29,7 +32,7 @@
           align-items: center;
   position: relative;
 }
-.cartbg .inclass .ali {
+.container .cartbg .inclass .ali {
   position: absolute;
   right: 0px;
   font-size: 2.5em;
@@ -38,22 +41,22 @@
   color: #008000;
   padding-left: 50px;
 }
-.cartbg .inclass .ali sup {
+.container .cartbg .inclass .ali sup {
   color: #f00;
   font-size: 0.5em;
 }
-.cartbg li {
+.container .cartbg li {
   display: inline;
   margin-right: 10px;
 }
-.cartbg .basket {
+.container .cartbg .basket {
   position: relative;
 }
-.cartbg .basket img {
+.container .cartbg .basket img {
   height: 70px;
   width: 70px;
 }
-.cartbg .basket .badge {
+.container .cartbg .basket .badge {
   background-color: #f00;
   position: absolute;
   left: 49px;

@@ -4,6 +4,10 @@ class Controller{
     displayCartItems(){
         View.displatCartItem();
     }
+
+    setUpEventListeners(){
+        View.setUpEventistener();
+    }
 }
 
 export let controller = new Controller();

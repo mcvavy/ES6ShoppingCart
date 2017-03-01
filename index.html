@@ -19,6 +19,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                <a href="#" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus fa-3x" aria-hidden="true"></i></a>
+                <ul id="container-product-list" class="product-list-holder">
+
+                </ul>
             </div>
             <div class="col-md-4 cartbg">
                 <ul class="inclass">
@@ -27,13 +31,74 @@
                     <li id="mainPrice" class="ali"></li>
                 </ul>
                 <ul id="cart-items" class="itemslist">
-                    
+
                 </ul>
             </div>
         </div>
 
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Add a product</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="productname">Product Name:</label>
+                                <input type="text" class="form-control" id="productname">
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price:</label>
+                                <input type="number" class="form-control" id="price">
+                            </div>
+                            <div class="form-group">
+                                <label for="discount">Discount:</label>
+                                <input type="number" class="form-control" id="discount">
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <input type="text" class="form-control" id="category">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <input type="text" class="form-control" id="description">
+                            </div>
+                            <div class="form-group">
+                                <label for="rating">Rating:</label>
+                                <input type="number" class="form-control" id="rating">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" class="form-control" id="quantity">
+                            </div>
+                            <div class="form-group">
+                                <label for="imageUrl">Image:</label>
+                                <input type="text" class="form-control" id="imageUrl">
+                            </div>
+                            <button id="product-add-button" type="submit" class="btn btn-primary">Add Product</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="modal-close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
     </div>
-    <script src="./dist/bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="./dist/bundle.js"></script>
 </body>
 
 </html>

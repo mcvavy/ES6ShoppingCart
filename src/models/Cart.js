@@ -14,7 +14,6 @@ class Cart {
     }
 
     totalItem() {
-        console.log(this.items.length);
         return (this.items.length>0) ? this.items.reduce((sum, b) => sum + 1, 0): 0;
     }
 
