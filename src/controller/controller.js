@@ -2,7 +2,7 @@ import {view as View} from '../view/view';
 
 class Controller{
     displayCartItems(){
-        View.displatCartItem();
+        View.displayCartItem();
     }
 
     setUpEventListeners(){

@@ -5,6 +5,8 @@ controller.setUpEventListeners();
 controller.displayCartItems();
 
 
+
+
 // console.log(`Total Item price is ${cartObject.totalPrice()}`);
 // console.log(`Total item in cart is: ${cartObject.totalItem()}`);
 // console.log(`Total discount price is ${cartObject.totalDiscountPrice()}`);

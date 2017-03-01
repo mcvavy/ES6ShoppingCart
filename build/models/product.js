@@ -18,6 +18,7 @@ var Product = exports.Product = function () {
 
         _classCallCheck(this, Product);
 
+        debugger;
         this.Id = pid.generate();
         this.name = name;
         this.price = price;

@@ -24,6 +24,7 @@ var View = function () {
             var _this = this;
 
             var el = document.getElementById("product-add-button");
+            el.innerHTML = "";
             el.addEventListener('click', function () {
                 var prodname = document.getElementById("productname").value,
                     price = document.getElementById("price").value,
@@ -55,9 +56,11 @@ var View = function () {
                     productPriceDiv = createElement("div", "productPriceDiv"),
                     prodimg = createElement("img", "product-image");
 
+                prodimg.src = item.imageUrl;
+
                 liEl.id = position;
 
-                productPriceDiv.innerHTML = '<ul>\n            <li><span>Price:</span><span>$' + item.price + '</span></li>\n            <li><span>In Stock:</span><span>$' + item.isAvailable() + '</span></li>\n            <li><button class="btn btn-success">Add to basket</button></li>\n        </ul>\n        ';
+                productPriceDiv.innerHTML = '<ul>\n                    <li><span>Price:</span><span>$' + item.price + '</span></li>\n                    <li><span>In Stock:</span><span>' + item.isAvailable() + '</span></li>\n                    <li><button class="btn btn-success">Add to basket</button></li>\n                </ul>\n                ';
 
                 productImageDiv.appendChild(prodimg);
                 productParentDiv.appendChild(productImageDiv);
@@ -68,9 +71,8 @@ var View = function () {
             });
         }
     }, {
-        key: 'displatCartItem',
-        value: function displatCartItem() {
-            debugger;
+        key: 'displayCartItem',
+        value: function displayCartItem() {
             //display total item price
             var splitarr = _Cart.cart.totalPrice() !== 0 ? _Cart.cart.totalPrice().toString().split('.') : ["0", "00"];
             splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");

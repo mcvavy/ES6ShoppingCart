@@ -19,7 +19,7 @@ var Controller = function () {
     _createClass(Controller, [{
         key: 'displayCartItems',
         value: function displayCartItems() {
-            _view.view.displatCartItem();
+            _view.view.displayCartItem();
         }
     }, {
         key: 'setUpEventListeners',

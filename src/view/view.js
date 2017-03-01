@@ -8,6 +8,7 @@ class View {
 
     setUpEventistener() {
         let el = document.getElementById("product-add-button");
+        el.innerHTML = "";
         el.addEventListener('click', () => {
             let prodname = document.getElementById("productname").value,
                 price = document.getElementById("price").value,
@@ -25,6 +26,8 @@ class View {
             this.displayProducts();
             document.getElementById("modal-close").click();
         });
+
+
     }
 
     displayProducts() {
@@ -38,16 +41,17 @@ class View {
                 productPriceDiv = createElement("div", "productPriceDiv"),
                 prodimg = createElement("img", "product-image");
 
+            prodimg.src = item.imageUrl;
 
             liEl.id = position;
 
             productPriceDiv.innerHTML =
                 `<ul>
-            <li><span>Price:</span><span>\$${item.price}</span></li>
-            <li><span>In Stock:</span><span>\$${item.isAvailable()}</span></li>
-            <li><button class="btn btn-success">Add to basket</button></li>
-        </ul>
-        `;
+                    <li><span>Price:</span><span>\$${item.price}</span></li>
+                    <li><span>In Stock:</span><span>${item.isAvailable()}</span></li>
+                    <li><button class="btn btn-success">Add to basket</button></li>
+                </ul>
+                `;
 
             productImageDiv.appendChild(prodimg);
             productParentDiv.appendChild(productImageDiv);
@@ -58,8 +62,7 @@ class View {
         });
     }
 
-    displatCartItem() {
-        debugger;
+    displayCartItem() {
         //display total item price
         let splitarr = (Cart.totalPrice() !== 0) ? Cart.totalPrice().toString().split('.') : ["0", "00"];
         splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
