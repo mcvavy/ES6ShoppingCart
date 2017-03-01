@@ -24,17 +24,16 @@ var View = function () {
             //display total item in basket
             //display total item price
             var splitarr = _Cart.cart.totalPrice() !== 0 ? _Cart.cart.totalPrice().toString().split('.') : ["0", "00"];
-
-            console.log(_Cart.cart.totalPrice());
+            splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 
             document.getElementById("mainPrice").innerHTML = '$' + splitarr[0] + '<sup>.' + splitarr[1] + '</sup>';
             document.getElementById("bagy").innerHTML = _Cart.cart.totalItem();
+            console.log(_Cart.cart.totalItem());
 
             _Cart.cart.items.forEach(function (item, position) {
                 var itemList = _this.createElement("li", "cart-item");
-                itemList.innerHTML = item.quantity + ' x ' + item.name + ' <span class="cart-item-price">= ' + (item.price * item.quantity).toFixed(2) + '</span>';
-                var cartItemList = document.getElementById("cart-items");
-                cartItemList.appendChild(itemList);
+                itemList.innerHTML = item.quantity + ' x ' + item.name + ' <span class="cart-item-price">= $' + (item.price * item.quantity).toFixed(2) + '</span>';
+                document.getElementById("cart-items").appendChild(itemList);
             });
         }
     }, {
