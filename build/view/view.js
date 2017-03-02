@@ -23,10 +23,12 @@ var View = function () {
         value: function setUpEventistener() {
             var _this = this;
 
-            var el = document.getElementById("product-add-button");
+            var el = document.getElementById("product-add-button"),
+                addbutton = document.querySelector(".product-list-holder");
             debugger;
 
-            el.addEventListener('click', function () {
+            el.addEventListener('click', function (e) {
+                e.preventDefault();
                 var prodname = document.getElementById("productname").value,
                     price = document.getElementById("price").value,
                     category = document.getElementById("category").value,
@@ -41,11 +43,25 @@ var View = function () {
 
                 //save productList to Local Storage
                 localStorage.setItem("products", JSON.stringify(_product.productList));
-                console.log(_product.productList);
 
-                //display product on the page
                 _this.displayProducts();
-                //document.getElementById("model-dismiss").click(false);
+                document.getElementById("modal-close").click();
+            });
+
+            addbutton.addEventListener('click', function (event) {
+                debugger;
+                var elementClicked = event.target;
+
+                //check if element clicked is a add to basket button
+                if (elementClicked.className.includes("add-to-basket-button")) {
+                    var parentNode = findParentNodeTogetId(elementClicked);
+                    console.log(parentNode.id);
+                    var productClicked = _product.productList[findParentNodeTogetId(elementClicked).id];
+
+                    //Fine and add the item with the Id to the Cart
+                    _Cart.cart.addItem(productClicked);
+                    _this.displayCartItem();
+                }
             });
         }
     }, {
@@ -55,30 +71,20 @@ var View = function () {
             //proListContainer.innerHTML = "";
             debugger;
 
-            var productLists = JSON.parse(localStorage.getItem("products"));
-
-            console.log(productLists);
-
-            if (!productLists) productLists = [];else {
-                productLists.forEach(function (item, position) {
-                    var liEl = createElement("li", "product-list-element"),
-                        productParentDiv = createElement("div", "productParentDiv"),
-
-                    //productImageDiv = createElement("div", "productImageDiv"),
+            //productList
+            _product.productList.forEach(function (item, position) {
+                var liEl = createElement("li", "product-list-element"),
+                    productParentDiv = createElement("div", "productParentDiv"),
                     productPriceDiv = createElement("div", "productPriceDiv");
-                    //prodimg = createElement("img", "product-image");
 
-                    //prodimg.src = item.imageUrl;
+                liEl.id = position;
 
-                    liEl.id = position;
+                productPriceDiv.innerHTML = '<ul class="product-details-style">\n                    <li><span><h3>' + item.name + '</h3></span></li>\n                     <li><img class="product-image" src=' + item.imgUrl + '></li>\n                    <li><span><b>Price: </b></span><span><b>$' + item.price + '</b></span></li><b>\n                    ' + (item.quantity > 0 ? "<li><span style='color: green'>In Stock</span></li>" : "<li style='color: red'><span>Out of stock</span></li>") + '</b>\n                    <li><button class="btn btn-success add-to-basket-button">Add to basket</button></li>\n                </ul>\n                ';
 
-                    productPriceDiv.innerHTML = '<ul class="product-details-style">\n                    <li><span><h3>' + item.name + '</h3></span></li>\n                     <li><img class="product-image" src=' + item.imgUrl + '></li>\n                    <li><span>Price:</span><span>$' + item.price + '</span></li>\n                    ' + (item.quantity > 0 ? "<li><span>In Stock</span></li>" : "<li><span>Out of stock</span></li>") + '\n                    <li><button class="btn btn-success">Add to basket</button></li>\n                </ul>\n                ';
-
-                    productParentDiv.appendChild(productPriceDiv);
-                    liEl.appendChild(productParentDiv);
-                    proListContainer.appendChild(liEl);
-                });
-            }
+                productParentDiv.appendChild(productPriceDiv);
+                liEl.appendChild(productParentDiv);
+                proListContainer.appendChild(liEl);
+            });
         }
     }, {
         key: 'displayCartItem',
@@ -92,12 +98,16 @@ var View = function () {
             //display total item in basket
             document.getElementById("bagy").innerHTML = _Cart.cart.totalItem();
 
+            document.getElementById("cart-items").innerHTML = "";
+
             //Loop and dislay Cart items in a list
             _Cart.cart.items.forEach(function (item, position) {
                 var itemList = createElement("li", "cart-item");
                 itemList.innerHTML = item.quantity + ' x ' + item.name + ' <span class="cart-item-price">= $' + (item.price * item.quantity).toFixed(2) + '</span>';
                 document.getElementById("cart-items").appendChild(itemList);
             });
+
+            //this.displayProducts();
         }
     }]);
 
@@ -118,6 +128,15 @@ var createElement = function createElement(elementName) {
     if (innerHTML !== "na") element.innerHTML = innerHTML;
 
     return element;
+};
+
+var findParentNodeTogetId = function findParentNodeTogetId(el) {
+    debugger;
+    while (el.parentNode) {
+        el = el.parentNode;
+        if (el.className.includes("product-list-element")) return el;
+    }
+    return null;
 };
 
 var view = exports.view = new View();

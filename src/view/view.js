@@ -7,10 +7,12 @@ class View {
     }
 
     setUpEventistener() {
-        let el = document.getElementById("product-add-button");
+        let el = document.getElementById("product-add-button"),
+            addbutton = document.querySelector(".product-list-holder"); 
         debugger;
 
-        el.addEventListener('click', () => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
             let prodname = document.getElementById("productname").value,
                 price = document.getElementById("price").value,
                 category = document.getElementById("category").value,
@@ -25,12 +27,26 @@ class View {
 
             //save productList to Local Storage
             localStorage.setItem("products", JSON.stringify(productList));
-            console.log(productList);
 
-            //display product on the page
             this.displayProducts();
-            //document.getElementById("model-dismiss").click(false);
+            document.getElementById("modal-close").click();
         });
+
+        addbutton.addEventListener('click', (event) => {
+            debugger;
+            let elementClicked = event.target;
+
+            //check if element clicked is a add to basket button
+            if (elementClicked.className.includes("add-to-basket-button")) {
+                let parentNode = findParentNodeTogetId(elementClicked);
+                console.log(parentNode.id);
+                let productClicked = productList[findParentNodeTogetId(elementClicked).id];
+        
+                //Fine and add the item with the Id to the Cart
+                Cart.addItem(productClicked);
+                this.displayCartItem();
+            }
+        })
 
 
     }
@@ -40,40 +56,31 @@ class View {
         //proListContainer.innerHTML = "";
         debugger;
 
-        let productLists = JSON.parse(localStorage.getItem("products"));
+        //productList
+        productList.forEach((item, position) => {
+            let liEl = createElement("li", "product-list-element"),
+                productParentDiv = createElement("div", "productParentDiv"),
+                productPriceDiv = createElement("div", "productPriceDiv");
 
-        console.log(productLists);
 
-        if (!productLists) productLists = [];
-        else {
-            productLists.forEach((item, position) => {
-                let liEl = createElement("li","product-list-element"),
-                    productParentDiv = createElement("div", "productParentDiv"),
-                    //productImageDiv = createElement("div", "productImageDiv"),
-                    productPriceDiv = createElement("div", "productPriceDiv");
-                    //prodimg = createElement("img", "product-image");
+            liEl.id = position;
 
-                //prodimg.src = item.imageUrl;
-
-                liEl.id = position;
-
-                productPriceDiv.innerHTML =
-                    `<ul class="product-details-style">
+            productPriceDiv.innerHTML =
+                `<ul class="product-details-style">
                     <li><span><h3>${item.name}</h3></span></li>
                      <li><img class="product-image" src=${item.imgUrl}></li>
-                    <li><span>Price:</span><span>\$${item.price}</span></li>
+                    <li><span><b>Price: </b></span><span><b>\$${item.price}</b></span></li><b>
                     ${
-                    (item.quantity > 0) ? "<li><span>In Stock</span></li>" : "<li><span>Out of stock</span></li>"
-                    }
-                    <li><button class="btn btn-success">Add to basket</button></li>
+                (item.quantity > 0) ? "<li><span style='color: green'>In Stock</span></li>" : "<li style='color: red'><span>Out of stock</span></li>"
+                }</b>
+                    <li><button class="btn btn-success add-to-basket-button">Add to basket</button></li>
                 </ul>
                 `;
 
-                productParentDiv.appendChild(productPriceDiv);
-                liEl.appendChild(productParentDiv);
-                proListContainer.appendChild(liEl);
-            });
-        }
+            productParentDiv.appendChild(productPriceDiv);
+            liEl.appendChild(productParentDiv);
+            proListContainer.appendChild(liEl);
+        });
     }
 
     displayCartItem() {
@@ -86,12 +93,16 @@ class View {
         //display total item in basket
         document.getElementById("bagy").innerHTML = Cart.totalItem();
 
+        document.getElementById("cart-items").innerHTML = "";
+
         //Loop and dislay Cart items in a list
         Cart.items.forEach((item, position) => {
             let itemList = createElement("li", "cart-item");
             itemList.innerHTML = `${item.quantity} x ${item.name} <span class="cart-item-price">= \$${(item.price * item.quantity).toFixed(2)}</span>`;
             document.getElementById("cart-items").appendChild(itemList);
         });
+
+        //this.displayProducts();
     }
 }
 
@@ -106,6 +117,16 @@ let createElement = (elementName, className = "na", style = "na", innerHTML = "n
 
     return element;
 
+}
+
+let findParentNodeTogetId = (el) => {
+    debugger;
+    while (el.parentNode) {
+        el = el.parentNode;
+        if (el.className.includes("product-list-element"))
+            return el;
+    }
+    return null;
 }
 
 

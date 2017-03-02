@@ -8,6 +8,13 @@
 .product-list-holder .product-list-element {
   display: inline-block;
 }
+.product-list-holder .product-list-element .product-details-style {
+  padding: 5px;
+  margin-right: 80px;
+}
+.product-list-holder .product-list-element .product-details-style:hover {
+  border: 1px solid #808080;
+}
 .container .fa-plus {
   color: #808080;
 }

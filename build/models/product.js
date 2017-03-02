@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -33,7 +33,7 @@ var Product = exports.Product = function () {
     }
 
     _createClass(Product, [{
-        key: 'isAvailable',
+        key: "isAvailable",
         value: function isAvailable() {
             return this.quantity > 0;
         }
@@ -42,4 +42,13 @@ var Product = exports.Product = function () {
     return Product;
 }();
 
-var productList = exports.productList = [];
+var productList = [];
+
+var productLists = JSON.parse(localStorage.getItem("products"));
+if (!productLists) productLists = [];else {
+    productLists.forEach(function (item, position) {
+        productList.push(item);
+    });
+}
+
+exports.productList = productList;

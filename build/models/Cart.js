@@ -22,6 +22,7 @@ var Cart = function () {
         key: 'addItem',
         value: function addItem(item) {
             this.items.push(item);
+            localStorage.setItem("Cart", JSON.stringify(this.items));
         }
     }, {
         key: 'removeItem',
