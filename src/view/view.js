@@ -53,7 +53,7 @@ class View {
 
     displayProducts() {
         let proListContainer = document.getElementById("container-product-list");
-        //proListContainer.innerHTML = "";
+        proListContainer.innerHTML = "";
         debugger;
 
         //productList
@@ -86,6 +86,7 @@ class View {
     displayCartItem() {
         //display total item price
         let splitarr = (Cart.totalPrice() !== 0) ? Cart.totalPrice().toString().split('.') : ["0", "00"];
+        console.log(splitarr[0]);
         splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 
         document.getElementById("mainPrice").innerHTML = `\$${splitarr[0]}<sup>.${splitarr[1]}&#162;</sup>`;
@@ -98,11 +99,9 @@ class View {
         //Loop and dislay Cart items in a list
         Cart.items.forEach((item, position) => {
             let itemList = createElement("li", "cart-item");
-            itemList.innerHTML = `${item.quantity} x ${item.name} <span class="cart-item-price">= \$${(item.price * item.quantity).toFixed(2)}</span>`;
+            itemList.innerHTML = `1 x ${item.name} <span class="cart-item-price">= \$${item.price}</span>`;
             document.getElementById("cart-items").appendChild(itemList);
         });
-
-        //this.displayProducts();
     }
 }
 
