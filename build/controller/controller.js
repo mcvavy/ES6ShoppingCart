@@ -26,6 +26,11 @@ var Controller = function () {
         value: function setUpEventListeners() {
             _view.view.setUpEventistener();
         }
+    }, {
+        key: 'displayProducts',
+        value: function displayProducts() {
+            _view.view.displayProducts();
+        }
     }]);
 
     return Controller;

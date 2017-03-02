@@ -24,7 +24,8 @@ var View = function () {
             var _this = this;
 
             var el = document.getElementById("product-add-button");
-            el.innerHTML = "";
+            debugger;
+
             el.addEventListener('click', function () {
                 var prodname = document.getElementById("productname").value,
                     price = document.getElementById("price").value,
@@ -37,38 +38,47 @@ var View = function () {
 
                 //(name, price, category, description, rating, quantity, comments, discount)
                 _product.productList.push(new _product.Product(prodname, price, category, description, rating, quantity, [], discount, imageUrl));
+
+                //save productList to Local Storage
+                localStorage.setItem("products", JSON.stringify(_product.productList));
                 console.log(_product.productList);
+
                 //display product on the page
                 _this.displayProducts();
-                document.getElementById("modal-close").click();
+                //document.getElementById("model-dismiss").click(false);
             });
         }
     }, {
         key: 'displayProducts',
         value: function displayProducts() {
             var proListContainer = document.getElementById("container-product-list");
-            proListContainer.innerHTML = "";
+            //proListContainer.innerHTML = "";
+            debugger;
 
-            _product.productList.forEach(function (item, position) {
-                var liEl = createElement("li"),
-                    productParentDiv = createElement("div"),
-                    productImageDiv = createElement("div", "productImageDiv"),
-                    productPriceDiv = createElement("div", "productPriceDiv"),
-                    prodimg = createElement("img", "product-image");
+            var productLists = JSON.parse(localStorage.getItem("products"));
 
-                prodimg.src = item.imageUrl;
+            console.log(productLists);
 
-                liEl.id = position;
+            if (!productLists) productLists = [];else {
+                productLists.forEach(function (item, position) {
+                    var liEl = createElement("li", "product-list-element"),
+                        productParentDiv = createElement("div", "productParentDiv"),
 
-                productPriceDiv.innerHTML = '<ul>\n                    <li><span>Price:</span><span>$' + item.price + '</span></li>\n                    <li><span>In Stock:</span><span>' + item.isAvailable() + '</span></li>\n                    <li><button class="btn btn-success">Add to basket</button></li>\n                </ul>\n                ';
+                    //productImageDiv = createElement("div", "productImageDiv"),
+                    productPriceDiv = createElement("div", "productPriceDiv");
+                    //prodimg = createElement("img", "product-image");
 
-                productImageDiv.appendChild(prodimg);
-                productParentDiv.appendChild(productImageDiv);
-                productParentDiv.appendChild(productPriceDiv);
+                    //prodimg.src = item.imageUrl;
 
-                liEl.appendChild(productParentDiv);
-                proListContainer.appendChild(liEl);
-            });
+                    liEl.id = position;
+
+                    productPriceDiv.innerHTML = '<ul class="product-details-style">\n                    <li><span><h3>' + item.name + '</h3></span></li>\n                     <li><img class="product-image" src=' + item.imgUrl + '></li>\n                    <li><span>Price:</span><span>$' + item.price + '</span></li>\n                    ' + (item.quantity > 0 ? "<li><span>In Stock</span></li>" : "<li><span>Out of stock</span></li>") + '\n                    <li><button class="btn btn-success">Add to basket</button></li>\n                </ul>\n                ';
+
+                    productParentDiv.appendChild(productPriceDiv);
+                    liEl.appendChild(productParentDiv);
+                    proListContainer.appendChild(liEl);
+                });
+            }
         }
     }, {
         key: 'displayCartItem',

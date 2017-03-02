@@ -1,8 +1,17 @@
+.product-list-holder {
+  font-family: Raleway;
+  list-style-type: none;
+}
+.product-list-holder ul {
+  list-style-type: none;
+}
+.product-list-holder .product-list-element {
+  display: inline-block;
+}
 .container .fa-plus {
   color: #808080;
 }
 .container .cartbg {
-  border: 1px solid #008000;
   border-radius: 5px;
   background: #a4b357;
   padding-top: 10px;

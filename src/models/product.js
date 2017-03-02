@@ -1,7 +1,7 @@
 let pid = require( 'shortid');
 
 export class Product{
-    constructor(name, price, category, description, rating, quantity, comments = [], discount, imgUrl){
+    constructor(name, price, category, description, rating, quantity = 0, comments = [], discount, imgUrl){
         debugger;
         this.Id = pid.generate();
         this.name = name;

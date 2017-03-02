@@ -11,7 +11,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var pid = require('shortid');
 
 var Product = exports.Product = function () {
-    function Product(name, price, category, description, rating, quantity) {
+    function Product(name, price, category, description, rating) {
+        var quantity = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
         var comments = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : [];
         var discount = arguments[7];
         var imgUrl = arguments[8];

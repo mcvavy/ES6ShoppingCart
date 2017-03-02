@@ -8,6 +8,10 @@ class Controller{
     setUpEventListeners(){
         View.setUpEventistener();
     }
+
+    displayProducts(){
+        View.displayProducts();
+    }
 }
 
 export let controller = new Controller();

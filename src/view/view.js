@@ -8,7 +8,8 @@ class View {
 
     setUpEventistener() {
         let el = document.getElementById("product-add-button");
-        el.innerHTML = "";
+        debugger;
+
         el.addEventListener('click', () => {
             let prodname = document.getElementById("productname").value,
                 price = document.getElementById("price").value,
@@ -21,10 +22,14 @@ class View {
 
             //(name, price, category, description, rating, quantity, comments, discount)
             productList.push(new Product(prodname, price, category, description, rating, quantity, [], discount, imageUrl));
+
+            //save productList to Local Storage
+            localStorage.setItem("products", JSON.stringify(productList));
             console.log(productList);
+
             //display product on the page
             this.displayProducts();
-            document.getElementById("modal-close").click();
+            //document.getElementById("model-dismiss").click(false);
         });
 
 
@@ -32,34 +37,43 @@ class View {
 
     displayProducts() {
         let proListContainer = document.getElementById("container-product-list");
-        proListContainer.innerHTML = "";
+        //proListContainer.innerHTML = "";
+        debugger;
 
-        productList.forEach((item, position) => {
-            let liEl = createElement("li"),
-                productParentDiv = createElement("div"),
-                productImageDiv = createElement("div", "productImageDiv"),
-                productPriceDiv = createElement("div", "productPriceDiv"),
-                prodimg = createElement("img", "product-image");
+        let productLists = JSON.parse(localStorage.getItem("products"));
 
-            prodimg.src = item.imageUrl;
+        console.log(productLists);
 
-            liEl.id = position;
+        if (!productLists) productLists = [];
+        else {
+            productLists.forEach((item, position) => {
+                let liEl = createElement("li","product-list-element"),
+                    productParentDiv = createElement("div", "productParentDiv"),
+                    //productImageDiv = createElement("div", "productImageDiv"),
+                    productPriceDiv = createElement("div", "productPriceDiv");
+                    //prodimg = createElement("img", "product-image");
 
-            productPriceDiv.innerHTML =
-                `<ul>
+                //prodimg.src = item.imageUrl;
+
+                liEl.id = position;
+
+                productPriceDiv.innerHTML =
+                    `<ul class="product-details-style">
+                    <li><span><h3>${item.name}</h3></span></li>
+                     <li><img class="product-image" src=${item.imgUrl}></li>
                     <li><span>Price:</span><span>\$${item.price}</span></li>
-                    <li><span>In Stock:</span><span>${item.isAvailable()}</span></li>
+                    ${
+                    (item.quantity > 0) ? "<li><span>In Stock</span></li>" : "<li><span>Out of stock</span></li>"
+                    }
                     <li><button class="btn btn-success">Add to basket</button></li>
                 </ul>
                 `;
 
-            productImageDiv.appendChild(prodimg);
-            productParentDiv.appendChild(productImageDiv);
-            productParentDiv.appendChild(productPriceDiv);
-
-            liEl.appendChild(productParentDiv);
-            proListContainer.appendChild(liEl);
-        });
+                productParentDiv.appendChild(productPriceDiv);
+                liEl.appendChild(productParentDiv);
+                proListContainer.appendChild(liEl);
+            });
+        }
     }
 
     displayCartItem() {
