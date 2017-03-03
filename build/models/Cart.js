@@ -27,6 +27,7 @@ var Cart = function () {
     }, {
         key: 'removeItem',
         value: function removeItem(position) {
+            debugger;
             this.items.splice(position, 1);
         }
     }, {

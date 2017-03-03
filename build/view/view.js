@@ -24,7 +24,8 @@ var View = function () {
             var _this = this;
 
             var el = document.getElementById("product-add-button"),
-                addbutton = document.querySelector(".product-list-holder");
+                addbutton = document.querySelector(".product-list-holder"),
+                cartItemList = document.querySelector(".itemslist");
             debugger;
 
             el.addEventListener('click', function (e) {
@@ -54,12 +55,21 @@ var View = function () {
 
                 //check if element clicked is a add to basket button
                 if (elementClicked.className.includes("add-to-basket-button")) {
-                    var parentNode = findParentNodeTogetId(elementClicked);
-                    console.log(parentNode.id);
-                    var productClicked = _product.productList[findParentNodeTogetId(elementClicked).id];
+                    var productClicked = _product.productList[findParentNodeTogetId(elementClicked, "product-list-element").id];
 
                     //Fine and add the item with the Id to the Cart
                     _Cart.cart.addItem(productClicked);
+                    _this.displayCartItem();
+                }
+            });
+
+            cartItemList.addEventListener('click', function (event) {
+                debugger;
+                var elementClicked = event.target;
+
+                if (elementClicked.className.includes("fa-times")) {
+                    var parentNode = findParentNodeTogetId(elementClicked, "cart-item");
+                    _Cart.cart.removeItem(parentNode.id);
                     _this.displayCartItem();
                 }
             });
@@ -91,7 +101,7 @@ var View = function () {
         value: function displayCartItem() {
             //display total item price
             var splitarr = _Cart.cart.totalPrice() !== 0 ? _Cart.cart.totalPrice().toString().split('.') : ["0", "00"];
-            console.log(splitarr[0]);
+
             splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 
             document.getElementById("mainPrice").innerHTML = '$' + splitarr[0] + '<sup>.' + splitarr[1] + '&#162;</sup>';
@@ -104,7 +114,8 @@ var View = function () {
             //Loop and dislay Cart items in a list
             _Cart.cart.items.forEach(function (item, position) {
                 var itemList = createElement("li", "cart-item");
-                itemList.innerHTML = '1 x ' + item.name + ' <span class="cart-item-price">= $' + item.price + '</span>';
+                itemList.id = position;
+                itemList.innerHTML = '<img class="small-product-icon" \n            src=' + item.imgUrl + '><b>1 x ' + item.name + ' \n            <span class="cartitem-price">= $' + item.price + ' <i class="fa fa-times" aria-hidden="true"></i></span></b>\n            ';
                 document.getElementById("cart-items").appendChild(itemList);
             });
         }
@@ -129,11 +140,14 @@ var createElement = function createElement(elementName) {
     return element;
 };
 
-var findParentNodeTogetId = function findParentNodeTogetId(el) {
+var findParentNodeTogetId = function findParentNodeTogetId(el, targetElementClass) {
     debugger;
     while (el.parentNode) {
         el = el.parentNode;
-        if (el.className.includes("product-list-element")) return el;
+        if (el.className.includes(targetElementClass)) {
+            console.log('The ID is ' + el.id);
+            return el;
+        }
     }
     return null;
 };

@@ -11,6 +11,7 @@ class Cart {
     }
 
     removeItem(position) {
+        debugger;
         this.items.splice(position, 1);
     }
 

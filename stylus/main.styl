@@ -27,9 +27,17 @@
     padding-top: 10px
     .itemslist
       list-style-type: none
-      .cart-item-price
+      .cartitem-price
         padding 0px 5px
         float: right
+        .fa-times
+          margin-left: 15px
+          margin-right: 15px
+          color white
+          &:hover
+            font-size: 1.2em;
+            color: red
+            cursor: pointer
       .cart-item
         display: block
         border-bottom: 1px solid grey
@@ -37,6 +45,12 @@
         font-family: Raleway
         font-size 1.3em
         border-radius: 6px
+        .small-product-icon
+          width: 50px
+          height: 50px
+          border-radius: 10px
+          margin-right: 10px
+          border: 0.5px solid grey
     
 
     .inclass

@@ -8,7 +8,8 @@ class View {
 
     setUpEventistener() {
         let el = document.getElementById("product-add-button"),
-            addbutton = document.querySelector(".product-list-holder"); 
+            addbutton = document.querySelector(".product-list-holder"),
+            cartItemList = document.querySelector(".itemslist");
         debugger;
 
         el.addEventListener('click', (e) => {
@@ -38,16 +39,24 @@ class View {
 
             //check if element clicked is a add to basket button
             if (elementClicked.className.includes("add-to-basket-button")) {
-                let parentNode = findParentNodeTogetId(elementClicked);
-                console.log(parentNode.id);
-                let productClicked = productList[findParentNodeTogetId(elementClicked).id];
-        
+                let productClicked = productList[findParentNodeTogetId(elementClicked, "product-list-element").id];
+
                 //Fine and add the item with the Id to the Cart
                 Cart.addItem(productClicked);
                 this.displayCartItem();
             }
-        })
+        });
 
+        cartItemList.addEventListener('click', (event) => {
+            debugger;
+            let elementClicked = event.target;
+
+            if (elementClicked.className.includes("fa-times")) {
+                let parentNode = findParentNodeTogetId(elementClicked, "cart-item");
+                Cart.removeItem(parentNode.id);
+                this.displayCartItem();
+            }
+        });
 
     }
 
@@ -86,7 +95,7 @@ class View {
     displayCartItem() {
         //display total item price
         let splitarr = (Cart.totalPrice() !== 0) ? Cart.totalPrice().toString().split('.') : ["0", "00"];
-        console.log(splitarr[0]);
+
         splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
 
         document.getElementById("mainPrice").innerHTML = `\$${splitarr[0]}<sup>.${splitarr[1]}&#162;</sup>`;
@@ -99,7 +108,11 @@ class View {
         //Loop and dislay Cart items in a list
         Cart.items.forEach((item, position) => {
             let itemList = createElement("li", "cart-item");
-            itemList.innerHTML = `1 x ${item.name} <span class="cart-item-price">= \$${item.price}</span>`;
+            itemList.id = position;
+            itemList.innerHTML = `<img class="small-product-icon" 
+            src=${item.imgUrl}><b>1 x ${item.name} 
+            <span class="cartitem-price">= \$${item.price} <i class="fa fa-times" aria-hidden="true"></i></span></b>
+            `;
             document.getElementById("cart-items").appendChild(itemList);
         });
     }
@@ -118,12 +131,15 @@ let createElement = (elementName, className = "na", style = "na", innerHTML = "n
 
 }
 
-let findParentNodeTogetId = (el) => {
+let findParentNodeTogetId = (el, targetElementClass) => {
     debugger;
     while (el.parentNode) {
         el = el.parentNode;
-        if (el.className.includes("product-list-element"))
+        if (el.className.includes(targetElementClass)) {
+            console.log(`The ID is ${el.id}`);
             return el;
+        }
+
     }
     return null;
 }

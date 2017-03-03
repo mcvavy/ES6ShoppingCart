@@ -30,9 +30,19 @@
 .container .cartbg .itemslist {
   list-style-type: none;
 }
-.container .cartbg .itemslist .cart-item-price {
+.container .cartbg .itemslist .cartitem-price {
   padding: 0px 5px;
   float: right;
+}
+.container .cartbg .itemslist .cartitem-price .fa-times {
+  margin-left: 15px;
+  margin-right: 15px;
+  color: #fff;
+}
+.container .cartbg .itemslist .cartitem-price .fa-times:hover {
+  font-size: 1.2em;
+  color: #f00;
+  cursor: pointer;
 }
 .container .cartbg .itemslist .cart-item {
   display: block;
@@ -41,6 +51,13 @@
   font-family: Raleway;
   font-size: 1.3em;
   border-radius: 6px;
+}
+.container .cartbg .itemslist .cart-item .small-product-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  margin-right: 10px;
+  border: 0.5px solid #808080;
 }
 .container .cartbg .inclass {
   list-style-type: none;
