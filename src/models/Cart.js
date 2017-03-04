@@ -13,6 +13,7 @@ class Cart {
     removeItem(position) {
         debugger;
         this.items.splice(position, 1);
+        localStorage.setItem("Cart", JSON.stringify(this.items));
     }
 
     totalItem() {
