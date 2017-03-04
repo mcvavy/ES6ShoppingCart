@@ -7,13 +7,13 @@ class View {
     }
 
     setUpEventistener() {
-        let el = document.getElementById("product-add-button"),
+        let productAddButton = document.getElementById("product-add-button"),
             addbutton = document.querySelector(".product-list-holder"),
             cartItemList = document.querySelector(".itemslist");
         debugger;
 
-        el.addEventListener('click', (e) => {
-            e.preventDefault();
+        productAddButton.addEventListener('click', (event) => {
+            event.preventDefault();
             let prodname = document.getElementById("productname").value,
                 price = document.getElementById("price").value,
                 category = document.getElementById("category").value,
@@ -42,6 +42,7 @@ class View {
                 let productClicked = productList[findParentNodeTogetId(elementClicked, "product-list-element").id];
 
                 //Fine and add the item with the Id to the Cart
+                console.log(productClicked.discount);
                 Cart.addItem(productClicked);
                 this.displayCartItem();
             }
@@ -110,8 +111,8 @@ class View {
             let itemList = createElement("li", "cart-item");
             itemList.id = position;
             itemList.innerHTML = `<img class="small-product-icon" 
-            src=${item.imgUrl}><b>1 x ${item.name} 
-            <span class="cartitem-price">= \$${item.price} <i class="fa fa-times" aria-hidden="true"></i></span></b>
+            src=${item.imgUrl}><b>${item.quantity} x ${item.name} 
+            <span class="cartitem-price">= \$${(item.price * item.quantity).toFixed(2)} <i class="fa fa-times" aria-hidden="true"></i></span></b>
             `;
             document.getElementById("cart-items").appendChild(itemList);
         });
@@ -135,11 +136,8 @@ let findParentNodeTogetId = (el, targetElementClass) => {
     debugger;
     while (el.parentNode) {
         el = el.parentNode;
-        if (el.className.includes(targetElementClass)) {
-            console.log(`The ID is ${el.id}`);
+        if (el.className.includes(targetElementClass)) 
             return el;
-        }
-
     }
     return null;
 }

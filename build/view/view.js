@@ -23,13 +23,13 @@ var View = function () {
         value: function setUpEventistener() {
             var _this = this;
 
-            var el = document.getElementById("product-add-button"),
+            var productAddButton = document.getElementById("product-add-button"),
                 addbutton = document.querySelector(".product-list-holder"),
                 cartItemList = document.querySelector(".itemslist");
             debugger;
 
-            el.addEventListener('click', function (e) {
-                e.preventDefault();
+            productAddButton.addEventListener('click', function (event) {
+                event.preventDefault();
                 var prodname = document.getElementById("productname").value,
                     price = document.getElementById("price").value,
                     category = document.getElementById("category").value,
@@ -58,6 +58,7 @@ var View = function () {
                     var productClicked = _product.productList[findParentNodeTogetId(elementClicked, "product-list-element").id];
 
                     //Fine and add the item with the Id to the Cart
+                    console.log(productClicked.discount);
                     _Cart.cart.addItem(productClicked);
                     _this.displayCartItem();
                 }
@@ -115,7 +116,7 @@ var View = function () {
             _Cart.cart.items.forEach(function (item, position) {
                 var itemList = createElement("li", "cart-item");
                 itemList.id = position;
-                itemList.innerHTML = '<img class="small-product-icon" \n            src=' + item.imgUrl + '><b>1 x ' + item.name + ' \n            <span class="cartitem-price">= $' + item.price + ' <i class="fa fa-times" aria-hidden="true"></i></span></b>\n            ';
+                itemList.innerHTML = '<img class="small-product-icon" \n            src=' + item.imgUrl + '><b>' + item.quantity + ' x ' + item.name + ' \n            <span class="cartitem-price">= $' + (item.price * item.quantity).toFixed(2) + ' <i class="fa fa-times" aria-hidden="true"></i></span></b>\n            ';
                 document.getElementById("cart-items").appendChild(itemList);
             });
         }
@@ -144,10 +145,7 @@ var findParentNodeTogetId = function findParentNodeTogetId(el, targetElementClas
     debugger;
     while (el.parentNode) {
         el = el.parentNode;
-        if (el.className.includes(targetElementClass)) {
-            console.log('The ID is ' + el.id);
-            return el;
-        }
+        if (el.className.includes(targetElementClass)) return el;
     }
     return null;
 };

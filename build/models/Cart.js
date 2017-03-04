@@ -21,7 +21,19 @@ var Cart = function () {
     _createClass(Cart, [{
         key: "addItem",
         value: function addItem(item) {
-            this.items.push(item);
+            debugger;
+            //If an item has been added to the basket, increase the quantity of the time
+            var itemInBasket = this.items.filter(function (x) {
+                return x.Id === item.Id;
+            })[0];
+
+            if (itemInBasket) {
+                this.items[this.items.indexOf(itemInBasket)].quantity = itemInBasket.quantity + 1;
+            } else {
+                item.quantity = 1;
+                this.items.push(item);
+            }
+
             localStorage.setItem("Cart", JSON.stringify(this.items));
         }
     }, {
@@ -49,7 +61,7 @@ var Cart = function () {
         key: "totalPrice",
         value: function totalPrice() {
             return this.items.length > 0 ? this.items.reduce(function (sum, b) {
-                return sum + (b.price - b.discount * b.price / 100);
+                return sum + (b.price - b.discount * b.price / 100) * b.quantity;
             }, 0.00).toFixed(2) : 0.00;
         }
     }, {

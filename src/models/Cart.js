@@ -6,7 +6,17 @@ class Cart {
     }
 
     addItem(item) {
-        this.items.push(item);
+        debugger;
+        //If an item has been added to the basket, increase the quantity of the time
+        let itemInBasket = this.items.filter(x => x.Id === item.Id)[0];
+
+        if (itemInBasket) {
+            this.items[this.items.indexOf(itemInBasket)].quantity = itemInBasket.quantity + 1;
+        } else {
+            item.quantity = 1;
+            this.items.push(item);
+        }
+
         localStorage.setItem("Cart", JSON.stringify(this.items));
     }
 
@@ -25,7 +35,7 @@ class Cart {
     }
 
     totalPrice() {
-        return (this.items.length > 0) ? (this.items.reduce((sum, b) => sum + (b.price - (b.discount * b.price) / 100), 0.00).toFixed(2)) : 0.00;
+        return (this.items.length > 0) ? (this.items.reduce((sum, b) => sum + (b.price - (b.discount * b.price) / 100)*b.quantity, 0.00).toFixed(2)) : 0.00;
     }
 
     totalPriceWithoutDiscount() {
