@@ -26,7 +26,6 @@ var View = function () {
             var productAddButton = document.getElementById("product-add-button"),
                 addbutton = document.querySelector(".product-list-holder"),
                 cartItemList = document.querySelector(".itemslist");
-            debugger;
 
             productAddButton.addEventListener('click', function (event) {
                 event.preventDefault();
@@ -50,7 +49,6 @@ var View = function () {
             });
 
             addbutton.addEventListener('click', function (event) {
-                debugger;
                 var elementClicked = event.target;
 
                 //check if element clicked is a add to basket button
@@ -65,7 +63,6 @@ var View = function () {
             });
 
             cartItemList.addEventListener('click', function (event) {
-                debugger;
                 var elementClicked = event.target;
 
                 if (elementClicked.className.includes("fa-times")) {
@@ -80,7 +77,6 @@ var View = function () {
         value: function displayProducts() {
             var proListContainer = document.getElementById("container-product-list");
             proListContainer.innerHTML = "";
-            debugger;
 
             //productList
             _product.productList.forEach(function (item, position) {
@@ -101,9 +97,7 @@ var View = function () {
         key: 'displayCartItem',
         value: function displayCartItem() {
             //display total item price
-            var splitarr = _Cart.cart.totalPrice() !== 0 ? _Cart.cart.totalPrice().toString().split('.') : ["0", "00"];
-
-            splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+            var splitarr = _Cart.cart.totalPrice() !== 0 ? AddCommaToNumber(_Cart.cart.totalPrice()) : ["0", "00"];
 
             document.getElementById("mainPrice").innerHTML = '$' + splitarr[0] + '<sup>.' + splitarr[1] + '&#162;</sup>';
 
@@ -114,9 +108,12 @@ var View = function () {
 
             //Loop and dislay Cart items in a list
             _Cart.cart.items.forEach(function (item, position) {
+                debugger;
+                var ItemPrice = AddCommaToNumber((item.price * item.quantity).toFixed(2));
+
                 var itemList = createElement("li", "cart-item");
                 itemList.id = position;
-                itemList.innerHTML = '<img class="small-product-icon" \n            src=' + item.imgUrl + '><b>' + item.quantity + ' x ' + item.name + ' \n            <span class="cartitem-price">= $' + (item.price * item.quantity).toFixed(2) + ' <i class="fa fa-times" aria-hidden="true"></i></span></b>\n            ';
+                itemList.innerHTML = '<img class="small-product-icon" \n            src=' + item.imgUrl + '><b>' + item.quantity + ' x ' + item.name + ' \n            <span class="cartitem-price">= $' + ItemPrice[0] + '.' + ItemPrice[1] + ' <i class="fa fa-times" aria-hidden="true"></i></span></b>\n            ';
                 document.getElementById("cart-items").appendChild(itemList);
             });
         }
@@ -142,12 +139,20 @@ var createElement = function createElement(elementName) {
 };
 
 var findParentNodeTogetId = function findParentNodeTogetId(el, targetElementClass) {
-    debugger;
     while (el.parentNode) {
         el = el.parentNode;
         if (el.className.includes(targetElementClass)) return el;
     }
     return null;
+};
+
+var AddCommaToNumber = function AddCommaToNumber(element) {
+    debugger;
+    var split = element.toString().split('.');
+
+    split[0] = split[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+
+    return split;
 };
 
 var view = exports.view = new View();

@@ -10,7 +10,6 @@ class View {
         let productAddButton = document.getElementById("product-add-button"),
             addbutton = document.querySelector(".product-list-holder"),
             cartItemList = document.querySelector(".itemslist");
-        debugger;
 
         productAddButton.addEventListener('click', (event) => {
             event.preventDefault();
@@ -34,7 +33,6 @@ class View {
         });
 
         addbutton.addEventListener('click', (event) => {
-            debugger;
             let elementClicked = event.target;
 
             //check if element clicked is a add to basket button
@@ -49,7 +47,6 @@ class View {
         });
 
         cartItemList.addEventListener('click', (event) => {
-            debugger;
             let elementClicked = event.target;
 
             if (elementClicked.className.includes("fa-times")) {
@@ -64,7 +61,6 @@ class View {
     displayProducts() {
         let proListContainer = document.getElementById("container-product-list");
         proListContainer.innerHTML = "";
-        debugger;
 
         //productList
         productList.forEach((item, position) => {
@@ -95,9 +91,7 @@ class View {
 
     displayCartItem() {
         //display total item price
-        let splitarr = (Cart.totalPrice() !== 0) ? Cart.totalPrice().toString().split('.') : ["0", "00"];
-
-        splitarr[0] = splitarr[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+        let splitarr = (Cart.totalPrice() !== 0) ? AddCommaToNumber(Cart.totalPrice()) : ["0", "00"];
 
         document.getElementById("mainPrice").innerHTML = `\$${splitarr[0]}<sup>.${splitarr[1]}&#162;</sup>`;
 
@@ -108,11 +102,14 @@ class View {
 
         //Loop and dislay Cart items in a list
         Cart.items.forEach((item, position) => {
+            debugger;
+            let ItemPrice = AddCommaToNumber((item.price * item.quantity).toFixed(2));
+
             let itemList = createElement("li", "cart-item");
             itemList.id = position;
             itemList.innerHTML = `<img class="small-product-icon" 
             src=${item.imgUrl}><b>${item.quantity} x ${item.name} 
-            <span class="cartitem-price">= \$${(item.price * item.quantity).toFixed(2)} <i class="fa fa-times" aria-hidden="true"></i></span></b>
+            <span class="cartitem-price">= \$${ItemPrice[0]}.${ItemPrice[1]} <i class="fa fa-times" aria-hidden="true"></i></span></b>
             `;
             document.getElementById("cart-items").appendChild(itemList);
         });
@@ -133,14 +130,22 @@ let createElement = (elementName, className = "na", style = "na", innerHTML = "n
 }
 
 let findParentNodeTogetId = (el, targetElementClass) => {
-    debugger;
     while (el.parentNode) {
         el = el.parentNode;
-        if (el.className.includes(targetElementClass)) 
+        if (el.className.includes(targetElementClass))
             return el;
     }
     return null;
 }
+
+let AddCommaToNumber = (element) => {
+    debugger;
+    let split = element.toString().split('.');
+
+    split[0] = split[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
+
+    return split;
+};
 
 
 export let view = new View();
